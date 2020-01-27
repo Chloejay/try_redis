@@ -30,11 +30,19 @@ def get_test(r: redis.Redis, sql, TTL, host, user, pswd, db):
             cursor=mysql_conn.cursor()
             cursor.execute(sql)
             data= cursor.fetchall() 
-            #TODO 
+            # cache= p.get('key',value)
+            # if cache is None:
+            #     key= 'key'.format(value)
+            #     p.set(key, json.dumps(cache)) 
+            # return cache 
+            #load first from the cache, if nothing on the cache layer
+            # then directly load from the database by the db connection 
+
             p.set('key', str(data))
             p.expire('key', TTL) 
             p.get('key') 
             result=p.execute() 
+
 
             logging.info(f'execute pipe {result}')
             return result 
@@ -45,4 +53,4 @@ def get_test(r: redis.Redis, sql, TTL, host, user, pswd, db):
 end = time.time() - start 
 pprint(f'execute time is {end}')  
 
-pprint(get_test(conn, sql, CACHE_TTL, HOST,USER, PSWD, DB )) 
+pprint(get_test(conn, sql, CACHE_TTL, HOST,USER, PSWD, DB)) 
