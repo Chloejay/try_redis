@@ -1,6 +1,6 @@
 dnspython==1.16.0
 mysql-connector-python==8.0.19
-protobuf==3.6.1
+protobuf==3.15.0
 py-mysql==1.0
 redis==3.3.11
 six==1.13.0
